@@ -25,12 +25,13 @@ public class Program
             app.UseSwaggerUI();
         }
 
+        app.UseRouting();
+
         app.UseHttpsRedirection();
 
         app.UseDefaultFiles();
         app.UseStaticFiles();
 
-        app.UseRouting();
         app.MapControllers();
     }
 

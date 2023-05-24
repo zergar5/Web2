@@ -1,4 +1,5 @@
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
+ENV ASPNETCORE_ENVIRONMENT=Development
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
@@ -17,4 +18,4 @@ RUN dotnet publish "Web2.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Web2.dll"]
+ENTRYPOINT ["dotnet", "Web2.dll", "--environment=Development"]

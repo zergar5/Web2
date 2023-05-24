@@ -1,17 +1,15 @@
 ﻿version: "3.9"
 networks:
-  deploy-guide-dev:
+  web2:
     driver: bridge
 services:
   app: 
-    container_name: deploy-guide
-    build:
-      context: .
-      dockerfile: Dockerfile
+    container_name: page-with-comments
+    image: zergar5/web2:page-with-comments
     ports:
-      - "3000:3000"
+      - "3000:80"
     networks:
-      - deploy-guide-dev
+      - web2
     depends_on:
       - postgres_db
   postgres_db:
@@ -20,11 +18,11 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123
-      POSTGRES_DB: deploy-guide
+      POSTGRES_DB: comments
     ports:
       - "5432:5432"
     networks:
-      - deploy-guide-dev
+      - web2
     volumes:
       - postgres-data:/var/lib/postgresql/data
 volumes:
